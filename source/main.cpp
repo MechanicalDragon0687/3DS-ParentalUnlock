@@ -59,31 +59,33 @@ int main(int argc, char* argv[])
 	CFG_GetConfigInfoBlk8(0x14, 0x00C0001, ParentalCOPPACS);
 	CFG_GetConfigInfoBlk8(0x200,0x00C0002, ParentalEmail);
 	CFG_GetConfigInfoBlk8(0x94, 0x0100001, ParentalConfig);
-	ParentalSettings[0x00] = 0;
-	ParentalSettings[0x01] = 0;
-	ParentalSettings[0x02] = 0;
-	ParentalSettings[0x03] = 0;
+	//ParentalSettings[0x00] = 0;
+	//ParentalSettings[0x01] = 0;
+	//ParentalSettings[0x02] = 0;
+	//ParentalSettings[0x03] = 0;
 	CFG_SetConfigInfoBlk8(0xc0, 0x00C0000, ParentalSettings);
+	CFG_SetConfigInfoBlk8(0x14, 0x00C0001, ParentalCOPPACS);
 	for (int i=0;i<0x14;i++) {
 		cout << std::hex << std::setw(2) << std::setfill('0') << (uint16_t)ParentalCOPPACS[i] << " ";
+		ParentalCOPPACS[i] = 0;
 	}
 	cout << "\n\n\n";
 	wait();
 	cout << "\n\n\n";
 	for (int i=0;i<0x94;i++) {
-		cout << std::hex << std::setw(2) << std::setfill('0') << (uint16_t)ParentalConfig[i] << " ";
+		cout << std::hex << std::setw(2) << std::setfill('0') << (uint8_t)ParentalConfig[i];
 	}
 	cout << "\n";
 	wait();
 	cout << "\n\n\n";
 	for (int i=0;i<0x200;i++) {
-		cout << std::hex << std::setw(2) << std::setfill('0') << (uint16_t)ParentalEmail[i] << " ";
+		cout << std::hex << std::setw(2) << std::setfill('0') << (uint8_t)ParentalEmail[i];
 	}
 	cout << "\n";
 	wait();
 	cout << "\n\n\n";
 	for (int i=0;i<0xC0;i++) {
-		cout << std::hex << std::setw(2) << std::setfill('0') << (uint16_t)ParentalSettings[i] << " ";
+		cout << std::hex << std::setw(2) << std::setfill('0') << (uint8_t)ParentalSettings[i];
 	}
 	cout << "\n";
 	wait();
