@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 	u64 title=0;
 	AM_GetTitleList(&titlecount, MEDIATYPE_NAND,300,titles);
 	for (u32 i=0; i<titlecount; i++) {
-		if (titles[i] == 0004001000020000 || titles[i] == 0004001000021000 || titles[i] == 0004001000022000 ||titles[i] == 0004001000026000 || titles[i] == 0004001000027000 || titles[i] == 0004001000028000) {
+		if (titles[i] == 0x0004001000020000 || titles[i] == 0x0004001000021000 || titles[i] == 0x0004001000022000 ||titles[i] == 0x0004001000026000 || titles[i] == 0x0004001000027000 || titles[i] == 0x0004001000028000) {
 			title=titles[i];
 			break;
 		}
