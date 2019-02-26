@@ -64,36 +64,14 @@ int main(int argc, char* argv[])
 	//ParentalSettings[0x02] = 0;
 	//ParentalSettings[0x03] = 0;
 //	ParentalSettings[0x03] = 0;
-	cout << "COPPACS Settings\n"; 
-	for (int i=0;i<0x14;i++) {
-		cout << std::hex << std::setw(2) << std::setfill('0') << (uint16_t)ParentalCOPPACS[i] << " ";
-		ParentalCOPPACS[i] = 0;
-	}
-	cout << "\n\n\n";
-	wait();
-	cout << "\n\n\n";
-	cout << "Parental Config block 0100001\n";
-	for (int i=0;i<0x94;i++) {
-		cout << std::hex << std::setw(2) << std::setfill('0') << (uint16_t)ParentalConfig[i];
-	}
-	cout << "\n";
-	wait();
-	cout << "\n\n\n";
-	cout << "Parental Email block 00C0002\n";
-	for (int i=0;i<0x200;i++) {
-		cout << std::hex << std::setw(2) << std::setfill('0') << (uint16_t)ParentalEmail[i];
-	}
-	cout << "\n";
-	wait();
-	cout << "\n\n\n";
-	cout << "Parental Settings block 00C0000\n";
-	for (int i=0;i<0xC0;i++) {
-		cout << std::hex << std::setw(2) << std::setfill('0') << (uint16_t)ParentalSettings[i];
-	}
-	cout << "\n";
-	wait();
+	std::fill(ParentalSettings,ParentalSettings+0x10,0);
+	std::fill(ParentalConfig+0x0d,ParentalConfig+0x20,0);
+	std::fill(ParentalEmail,ParentalEmail+0x200,0);
+	std::fill(ParentalCOPPACS,ParentalCOPPACS+0x14,0);
 	CFG_SetConfigInfoBlk8(0xc0, 0x00C0000, ParentalSettings);
 	CFG_SetConfigInfoBlk8(0x14, 0x00C0001, ParentalCOPPACS);
+	CFG_SetConfigInfoBlk8(0x200, 0x00C0002, ParentalEmail);
+	CFG_SetConfigInfoBlk8(0x94, 0x00C0000, ParentalConfig);
 	CFG_UpdateConfigSavegame(); 
 	//CFG_SetConfigInfoBlk8(4, 0xD0000, eulaData);
 	fucked();
