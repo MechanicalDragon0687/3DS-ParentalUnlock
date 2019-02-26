@@ -68,11 +68,25 @@ int main(int argc, char* argv[])
 	std::fill(ParentalConfig+0x0d,ParentalConfig+0x20,0);
 	std::fill(ParentalEmail,ParentalEmail+0x200,0);
 	std::fill(ParentalCOPPACS,ParentalCOPPACS+0x14,0);
-	CFG_SetConfigInfoBlk8(0xc0, 0x00C0000, ParentalSettings);
-	CFG_SetConfigInfoBlk8(0x14, 0x00C0001, ParentalCOPPACS);
-	CFG_SetConfigInfoBlk8(0x200, 0x00C0002, ParentalEmail);
-	CFG_SetConfigInfoBlk8(0x94, 0x00C0000, ParentalConfig);
-	CFG_UpdateConfigSavegame(); 
+	if (R_FAILED(CFG_SetConfigInfoBlk8(0xc0, 0x00C0000, ParentalSettings))) {
+		cout << "Failed to reset Parental Control settings\n";
+	}
+	if (R_FAILED(CFG_SetConfigInfoBlk8(0x14, 0x00C0001, ParentalCOPPACS))) {
+		cout << "Failed to reset Child Protection settings\n";
+	}
+
+	if (R_FAILED(CFG_SetConfigInfoBlk8(0x200, 0x00C0002, ParentalEmail))) {
+		cout << "Failed to reset Parent email\n";
+	}
+
+	if (R_FAILED(CFG_SetConfigInfoBlk8(0x94, 0x0100001, ParentalConfig))) {
+		cout << "Failed to set Parent secret question and pin settings\n";
+	}
+
+	if (R_FAILED(CFG_UpdateConfigSavegame())) {
+		cout << "Failed to update all settings\n";
+	}
+ 	cout << "\nDone!\n";
 	//CFG_SetConfigInfoBlk8(4, 0xD0000, eulaData);
 	fucked();
 	amExit();
