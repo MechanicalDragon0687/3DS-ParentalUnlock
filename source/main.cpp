@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 	cout << std::hex << ParentalSettings << "\n";
 	CFG_UpdateConfigSavegame(); 
 	//CFG_SetConfigInfoBlk8(4, 0xD0000, eulaData);
-	fucked("");
+	fucked();
 	amExit();
 	cfguExit();
 	gfxExit();
