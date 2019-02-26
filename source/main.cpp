@@ -41,20 +41,17 @@ int main(int argc, char* argv[])
 	}
 	cout << "Clearing Parental Controls";
 //	CFGI_ClearParentalControls();
-	u8 MEM00C0000[0xc0] = {0};
-	u8 MEMC000001[0x14] = {0};
-	u8 MEMC000002[0x200] = {0};
-	u8 MEM0100001[0x94] = {0};
+	u8 ParentalSettings[0xc0] = {0};
+	u8 ParentalCOPPACS[0x14] = {0};
+	u8 ParentalEmail[0x200] = {0};
+	u8 ParentalConfig[0x94] = {0};
 
-	CFG_GetConfigInfoBlk8(0xc0, 0x00C0000, MEM00C0000);
-	CFG_GetConfigInfoBlk8(0x14, 0x00C0001, MEM00C0001);
-	CFG_GetConfigInfoBlk8(0x200,0x00C0002, MEM00C0002);
-	CFG_GetConfigInfoBlk8(0x94, 0x0100001, MEM0101000);
-	MEM00C0000[0x0C] = 0;
-	MEM00C0000[0x0D] = 0;
-	MEM00C0000[0x0E] = 0;
-	MEM00C0000[0x0F] = 0;
-	CFG_SetConfigInfoBlk8(0xc0, 0x00C0000, MEM00C0000);
+	CFG_GetConfigInfoBlk8(0xc0, 0x00C0000, ParentalSettings);
+	CFG_GetConfigInfoBlk8(0x14, 0x00C0001, ParentalCOPPACS);
+	CFG_GetConfigInfoBlk8(0x200,0x00C0002, ParentalEmail);
+	CFG_GetConfigInfoBlk8(0x94, 0x0100001, ParentalConfig);
+	(u32*)ParentalSettings[0x0C] = 0;
+	CFG_SetConfigInfoBlk8(0xc0, 0x00C0000, ParentalSettings);
 	cout << std::hex << MEM0101000 << "\n"
 	//CFG_SetConfigInfoBlk8(4, 0xD0000, eulaData);
 	fucked("");
