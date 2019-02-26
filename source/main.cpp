@@ -67,12 +67,14 @@ int main(int argc, char* argv[])
 	for (int i=0;i<0x14;i++) {
 		cout << std::hex << std::setw(2) << std::setfill('0') << ParentalCOPPACS[i];
 	}
+	cout << "\n\n\n";
 	wait();
 	cout << "\n\n\n";
 	for (int i=0;i<0x94;i++) {
 		cout << std::hex << std::setw(2) << std::setfill('0') << ParentalConfig[i];
 	}
-	
+	cout << "\n";
+	wait();
 	CFG_UpdateConfigSavegame(); 
 	//CFG_SetConfigInfoBlk8(4, 0xD0000, eulaData);
 	fucked();
