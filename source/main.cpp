@@ -15,9 +15,18 @@ void fucked() {
 		hidScanInput();
 		if (hidKeysDown() & KEY_START) { 
 			amExit();
+			cfguExit();
 			gfxExit();
-			fsExit();	
 			exit(0);
+		}
+	}
+}
+void wait() {
+	//cout << "\n\nPress [Start] to exit\n\n";	
+	while (1) {
+		hidScanInput();
+		if (hidKeysDown() & KEY_START) { 
+			return;
 		}
 	}
 }
@@ -40,25 +49,46 @@ int main(int argc, char* argv[])
 		fucked();
 	}
 	cout << "Clearing Parental Controls";
-	CFGI_ClearParentalControls();
+//	CFGI_ClearParentalControls();
+	u8 ParentalSettings[0xc0] = {0};
+	u8 ParentalCOPPACS[0x14] = {0};
+	u8 ParentalEmail[0x200] = {0};
+	u8 ParentalConfig[0x94] = {0};
 
-	cout << "Initializing PM services\n";
-	if (R_FAILED(pmInit())) {
-		cout << "Failed to initialize PM services\n";
-		fucked();
-	}	
-	u32 titlecount=0;
-	u64 titles[300];
-	u64 title=0;
-	AM_GetTitleList(&titlecount, MEDIATYPE_NAND,300,titles);
-	for (u32 i=0; i<titlecount; i++) {
-		if (titles[i] == 0x0004001000020000 || titles[i] == 0x0004001000021000 || titles[i] == 0x0004001000022000 ||titles[i] == 0x0004001000026000 || titles[i] == 0x0004001000027000 || titles[i] == 0x0004001000028000) {
-			title=titles[i];
-			break;
-		}
+	CFG_GetConfigInfoBlk8(0xc0, 0x00C0000, ParentalSettings);
+	CFG_GetConfigInfoBlk8(0x14, 0x00C0001, ParentalCOPPACS);
+	CFG_GetConfigInfoBlk8(0x200,0x00C0002, ParentalEmail);
+	CFG_GetConfigInfoBlk8(0x94, 0x0100001, ParentalConfig);
+	//ParentalSettings[0x00] = 0;
+	//ParentalSettings[0x01] = 0;
+	//ParentalSettings[0x02] = 0;
+	//ParentalSettings[0x03] = 0;
+//	ParentalSettings[0x03] = 0;
+	std::fill(ParentalSettings,ParentalSettings+0x10,0);
+	std::fill(ParentalConfig+0x0d,ParentalConfig+0x20,0);
+	std::fill(ParentalEmail,ParentalEmail+0x200,0);
+	std::fill(ParentalCOPPACS,ParentalCOPPACS+0x14,0);
+	if (R_FAILED(CFG_SetConfigInfoBlk8(0xc0, 0x00C0000, ParentalSettings))) {
+		cout << "Failed to reset Parental Control settings\n";
 	}
-	PM_LaunchTitle(MEDIATYPE_NAND,title,0x70);
-	pmExit();
+	if (R_FAILED(CFG_SetConfigInfoBlk8(0x14, 0x00C0001, ParentalCOPPACS))) {
+		cout << "Failed to reset Child Protection settings\n";
+	}
+
+	if (R_FAILED(CFG_SetConfigInfoBlk8(0x200, 0x00C0002, ParentalEmail))) {
+		cout << "Failed to reset Parent email\n";
+	}
+
+	if (R_FAILED(CFG_SetConfigInfoBlk8(0x94, 0x0100001, ParentalConfig))) {
+		cout << "Failed to set Parent secret question and pin settings\n";
+	}
+
+	if (R_FAILED(CFG_UpdateConfigSavegame())) {
+		cout << "Failed to update all settings\n";
+	}
+ 	cout << "\nDone!\n";
+	//CFG_SetConfigInfoBlk8(4, 0xD0000, eulaData);
+	fucked();
 	amExit();
 	cfguExit();
 	gfxExit();
