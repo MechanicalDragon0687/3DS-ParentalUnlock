@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 	consoleSelect(&bottomScreen);
 	bool isN3ds = false;
 	cout << "Initializing CFG services\n";
-	if (R_FAILED(cfguInit();)) {
+	if (R_FAILED(cfguInit())) {
 		cout << "Failed to initialize CFG services\n";
 		fucked();
 	}
@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
 		fucked();
 	}
 	cout << "Initializing PM services\n";
-	if (R_FAILED(pmInit();)) {
+	if (R_FAILED(pmInit())) {
 		cout << "Failed to initialize PM services\n";
 		fucked();
 	}
