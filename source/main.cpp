@@ -50,7 +50,10 @@ int main(int argc, char* argv[])
 	CFG_GetConfigInfoBlk8(0x14, 0x00C0001, ParentalCOPPACS);
 	CFG_GetConfigInfoBlk8(0x200,0x00C0002, ParentalEmail);
 	CFG_GetConfigInfoBlk8(0x94, 0x0100001, ParentalConfig);
-	(u32*)ParentalSettings[0x0C] = 0;
+	ParentalSettings[0x0C] = 0;
+	ParentalSettings[0x0D] = 0;
+	ParentalSettings[0x0E] = 0;
+	ParentalSettings[0x0F] = 0;
 	CFG_SetConfigInfoBlk8(0xc0, 0x00C0000, ParentalSettings);
 	cout << std::hex << ParentalCOPPACS << "\n";
 	cout << std::hex << ParentalSettings << "\n";
