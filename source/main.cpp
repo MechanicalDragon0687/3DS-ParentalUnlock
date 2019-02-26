@@ -52,7 +52,9 @@ int main(int argc, char* argv[])
 	CFG_GetConfigInfoBlk8(0x94, 0x0100001, ParentalConfig);
 	(u32*)ParentalSettings[0x0C] = 0;
 	CFG_SetConfigInfoBlk8(0xc0, 0x00C0000, ParentalSettings);
-	cout << std::hex << MEM0101000 << "\n"
+	cout << std::hex << ParentalCOPPACS << "\n";
+	cout << std::hex << ParentalSettings << "\n";
+	CFG_UpdateConfigSavegame(); 
 	//CFG_SetConfigInfoBlk8(4, 0xD0000, eulaData);
 	fucked("");
 	amExit();
