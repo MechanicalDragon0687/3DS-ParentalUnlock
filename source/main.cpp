@@ -21,6 +21,15 @@ void fucked() {
 		}
 	}
 }
+void wait() {
+	//cout << "\n\nPress [Start] to exit\n\n";	
+	while (1) {
+		hidScanInput();
+		if (hidKeysDown() & KEY_START) { 
+			return;
+		}
+	}
+}
 
 int main(int argc, char* argv[])
 {
@@ -55,8 +64,15 @@ int main(int argc, char* argv[])
 	ParentalSettings[0x0E] = 0;
 	ParentalSettings[0x0F] = 0;
 	CFG_SetConfigInfoBlk8(0xc0, 0x00C0000, ParentalSettings);
-	cout << std::hex << ParentalCOPPACS << "\n";
-	cout << std::hex << ParentalSettings << "\n";
+	for (int i=0;i<0x14;i++) {
+		cout << std::hex << std::setw(2) << std::setfill('0') << ParentalCOPPACS[i];
+	}
+	wait();
+	cout << "\n\n\n";
+	for (int i=0;i<0x94;i++) {
+		cout << std::hex << std::setw(2) << std::setfill('0') << ParentalConfig[i];
+	}
+	
 	CFG_UpdateConfigSavegame(); 
 	//CFG_SetConfigInfoBlk8(4, 0xD0000, eulaData);
 	fucked();
