@@ -75,6 +75,18 @@ int main(int argc, char* argv[])
 	}
 	cout << "\n";
 	wait();
+	cout << "\n\n\n";
+	for (int i=0;i<0x200;i++) {
+		cout << std::hex << std::setw(2) << std::setfill('0') << ParentalEmail[i];
+	}
+	cout << "\n";
+	wait();
+	cout << "\n\n\n";
+	for (int i=0;i<0xC0;i++) {
+		cout << std::hex << std::setw(2) << std::setfill('0') << ParentalSettings[i];
+	}
+	cout << "\n";
+	wait();
 	CFG_UpdateConfigSavegame(); 
 	//CFG_SetConfigInfoBlk8(4, 0xD0000, eulaData);
 	fucked();
