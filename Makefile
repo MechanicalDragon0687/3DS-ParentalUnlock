@@ -9,9 +9,9 @@ endif
 TOPDIR ?= $(CURDIR)
 include $(DEVKITARM)/3ds_rules
 
-APP_TITLE = TWLFixer
-APP_DESCRIPTION = Using existing DSiWare, Uninstall TWL FIRM
-APP_AUTHOR = RandalHoffman & Jason0597
+APP_TITLE = ParentalUnlock
+APP_DESCRIPTION = Removes parental locks and COPPA from 3ds
+APP_AUTHOR = RandalHoffman
 
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
