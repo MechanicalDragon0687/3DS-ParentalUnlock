@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 	consoleInit(GFX_TOP, &topScreen);
 	consoleInit(GFX_BOTTOM, &bottomScreen);
 	consoleSelect(&bottomScreen);
-	bool isN3ds = false;
+
 	cout << "Initializing CFG services\n";
 	if (R_FAILED(cfguInit())) {
 		cout << "Failed to initialize CFG services\n";
